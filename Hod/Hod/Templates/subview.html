@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'sidenav.html' %}
+{% include 'header.html' %}
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header" align="center"><span>View Subject </span></h1>
+		</div>
+	</div>
+<form id="staffview" action = "" method = "POST" enctype = "">
+{% csrf_token %}
+    <tr>
+					<td>Department: <span class="required">*</span></td>
+					<td><select name="deptna" id="deptname" class="form-control" >
+					<option value="--select--">--select--</option>
+						{% for res1 in Department %}
+						<option>{{res1.deptname}}</option>
+						{% endfor%}
+
+
+
+					</select>
+					</td>
+		 </tr>
+	     <tr align="center">
+        <td><input style="width:200px" id="submit" class="btn btn-primary" type="submit" value="Submit" name="submit"/></td>
+
+		 </tr>
+	 {% if messages %}
+			{% for message in messages %}
+			<h4  align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+
+
+</form>
+
+	<div class="row">
+		<div class="col-lg-12">
+
+
+			<form id="subview" action = "" method = "POST" enctype = "">
+
+				</form>
+				<br><br>
+				<div class=".col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0">
+					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+
+						<tr>
+							<th>Subject-ID</th>
+							<th>Subject</th>
+
+							<th>Type</th>
+							<th>Internal Pass Mark</th>
+							<th>Internal Max</th>
+							<th>External Pass Mark</th>
+							<th>External Max</th>
+							<th>EDIT</th>
+                            <th>REMOVE</th>
+						</tr>
+
+								    {% for vwsub in SubjectClass %}
+								          <tr>
+
+									         <td>{{vwsub.subjectid }}</td>
+											 <td>{{vwsub.subject_title }}</td>
+											 <td>{{vwsub.type}}</td>
+											   <td>{{vwsub.internal_passmark}}</td>
+											 <td>{{vwsub.internal_mark}}</td>
+											   <td>{{vwsub.external_pass_mark}}</td>
+											 <td>{{vwsub.external_mark}}</td>
+                                              <td> <a href="/editsub/{{vwsub.subjectid }}">EDIT</a></td>
+								              <td><a href ="/deletesub/{{vwsub.subjectid}}">REMOVE</a></td>
+
+
+										  </tr>
+
+
+					             {% endfor %}
+
+
+							</tr>
+{% include 'footer.html' %}
+</html>

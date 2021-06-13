@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'sidenav.html' %}
+{% include 'header.html' %}
+<script  src="jquery.js"></script>
+
+<script type="text/javascript">
+  function fetchsubject(a)
+  {
+    console.log(a);
+    $.post("getsub.php",{ key : a},
+      function(data){
+        $('#data').html(data);
+      });
+  }
+</script>
+
+<script>
+  function validate()
+  {
+   var s1 = document.getElementById('classid').value;
+   var s2 = document.getElementById('subjectid').value;
+   if(s1=="--select--"){
+    alert("Please select Semester");
+    return false;
+  }
+  if(s2=="--select--"){
+    alert("Please select Subject");
+    return false;
+  }
+
+  return true;
+}
+</script>
+
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header" align="center"><span>Subject Allocation</span></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+
+     <form id="suballoc" action = "addsuballoc.html" method = "POST" enctype = "">
+      {% csrf_token %}
+       <table  id="outer1" align="center" style="padding-top:40px">
+            <tr>
+					<td>Department: <span class="required">*</span></td>
+					<td><select name="deptname" id="deptname" class="form-control" >
+					<option value="--select--">--select--</option>
+                       {% for rest1 in Department %}
+						<option>{{rest1.deptname}}</option>
+						{% endfor%}
+
+
+					</select>
+					</td>
+		 </tr>
+
+        <tr>
+         <td>
+          <label>Semester:<span class="required">*</span></label>
+        </td>
+        <td><select  name="classid" id="classid" class="form-control">
+         <option value="--select--">--select--</option>
+							 {% for subaloc in ClassDetails %}
+						<option>{{subaloc.classid}}</option>
+						{% endfor%}
+
+       </select></td>
+     </tr>
+
+     <tr>
+      <td>
+       <label>Subject :<span class="required">*</span></label>
+     </td>
+     <td>
+
+      <div id ="data">
+        <select name="subjectid" id="subjectid" class="form-control">
+         <option value="--select--">--select--</option>
+             {% for subname in SubjectClass %}
+						<option>{{subname.subjectid}}</option>
+						{% endfor%}
+
+       </select>
+     </div>
+   </td>
+ </tr>
+
+ <tr>
+   <td>
+    <label>Faculty Name:<span class="required">*</span></label>
+  </td>
+  <td>
+   <div id ="data2">
+       <select name="fname"  class="form-control">
+         <option value="--select--">--select--</option>
+             {% for fname1 in FacultyDetails%}
+						<option>{{fname1.name}}</option>
+						{% endfor%}
+
+       </select>
+   </div></td>
+</tr>
+
+<tr>
+  <td>
+    <label>Faculty ID:<span class="required"></span></label>
+  </td><td>
+    <div id ="data1">
+      <input list="fid"  autocomplete="off" class="form-control" name="fid" type="text" />
+      </div></td>
+    </tr>
+<tr>
+
+
+  <td>
+  <label>Type:*</label>
+  </td>
+  <td>
+    <label class="radio-inline">
+    <input type="radio" value="main" required="required"  name="type">Main
+    </label>
+    <label class="radio-inline">
+    <input type="radio" name="type" required="required" value="sub">Sub
+    </label>
+  </td>
+</tr>
+    <tr>
+      <td></td>
+      <td><input style="width:100px" id="submit" class="btn btn-primary" type="submit" value="submit" name="submit"/></td>
+    </tr>
+
+  </table>
+         {% if messages %}
+			{% for message in messages %}
+			<h4 align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+</form>
+
+</div>
+</div>
+</div>
+
+
+<script src="jquery.js"></script>
+<script type="text/javascript">
+  function fillname(x)
+  {
+    $.post("load.php", { key:x },
+      function(data) {
+        $('#data1').html(data);
+      });
+  }
+
+</script>
+{% include 'footer.html' %}
+
+</html>

@@ -1,0 +1,104 @@
+
+<html lang="en">
+
+
+<body>
+{% include 'sidenav.html' %}
+{% include 'header.html' %}
+
+<div id="page-wrapper">
+	            <div class="row"><div class="col-lg-12" >
+                    <h1 class="page-header"> Faculty Details</h1>
+             </div>
+<form id="staffview" action = "" method = "POST" enctype = "">
+{% csrf_token %}
+    <tr>
+					<td>Department: <span class="required">*</span></td>
+					<td><select name="deptna" id="deptname" class="form-control" >
+					<option value="--select--">--select--</option>
+                         {% for details1 in Department %}
+						<option>{{details1.deptname}}</option>
+						{% endfor%}
+					</select>
+					</td>
+		 </tr>
+	     <tr align="center">
+        <td><input style="width:200px" id="submit" class="btn btn-primary" type="submit" value="Submit" name="submit"/></td>
+
+		 </tr>
+
+{% if messages %}
+			{% for message in messages %}
+			<h4 align="left" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+</form>
+
+<table border="1" align="center"
+           style="background-color: #FFFFFF; width: 955px;" cellpadding="5">
+
+            <tr style="font-family: 'Times New Roman', Times, serif;
+                font-size: 18px; font-weight: bold; color: #FFFFFF;
+                background-color: #000000">
+<div class="row">
+                <div class="col-lg-12">
+
+
+
+
+	<div class=".col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0">
+<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+  <tr>
+    <th>Faculty ID</th>
+	 <th>Faculty Name</th>
+    <th>Department</th>
+	<th>E-Mail ID</th>
+	<th>Contact Number</th>
+	<th>Photo</th>
+	<th>Edit</th>
+	<th>Delete</th>
+	</tr>
+
+
+
+
+
+
+                {% for details2 in FacultyDetails %}
+
+						<tr>
+                            <td>{{details2.fid }}</td>
+                            <td>{{details2.name}}</td>
+                            <td>{{details2.deptname}}</td>
+                             <td>{{details2.email}}</td>
+                             <td>{{details2.phoneno}}</td>
+                             <td>{{details2.photo}}</td>
+                             <td><a href="/editstaff/{{details2.fid }}" >EDIT </a></td>
+                             <td><a href="/deletestaff/{{details2.fid}}" >DELETE </a></td>
+                        </tr>
+
+                {% endfor %}
+
+
+
+</table>
+
+    </div>
+                </div>
+</div>
+
+
+
+
+
+            </tr>
+    {% include 'footer.html' %}
+</table>
+ 	{% if messages %}
+			{% for message in messages %}
+			<h4 align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'sidenav.html' %}
+{% include 'header.html' %}
+<script  src="jquery.js"></script>
+
+<script type="text/javascript">
+  function fetchsubject(a)
+  {
+    console.log(a);
+    $.post("getsub.php",{ key : a},
+      function(data){
+        $('#data').html(data);
+      });
+  }
+</script>
+
+<script>
+  function validate()
+  {
+   var s1 = document.getElementById('classid').value;
+   var s2 = document.getElementById('subjectid').value;
+   if(s1=="--select--"){
+    alert("Please select Semester");
+    return false;
+  }
+  if(s2=="--select--"){
+    alert("Please select Subject");
+    return false;
+  }
+
+  return true;
+}
+</script>
+
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header" align="center"><span>Edit Subject Allocation Details</span></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+
+     <form  action="/editsuballot/{{varsubaloc.subjectid.classid}}"  method = "POST" enctype = "">
+      {% csrf_token %}
+       <table  id="outer1" align="center" style="padding-top:40px">
+
+
+        <tr>
+         <td>
+          <label>Semester:<span class="required">*</span></label>
+        </td>
+            <td>
+            <input required="required" class="form-control" value="{{varsubaloc.subjectid.classid}}" autocomplete="off" id="Text2" type="text" name="classid" style="text-transform:uppercase; width: 400px" />
+       </td>
+     </tr>
+
+     <tr>
+      <td>
+       <label>Subject :<span class="required">*</span></label>
+     </td>
+     <td>
+         <input required="required" class="form-control" value="{{varsubaloc.subjectid.subjectid}}" autocomplete="off" id="Text3" type="text" name="subjectid" style="text-transform:uppercase; width: 400px" />
+
+
+   </td>
+ </tr>
+
+
+
+<tr>
+  <td>
+    <label>Faculty ID:<span class="required"></span></label>
+  </td><td>
+    <input required="required" class="form-control" value="{{varsubaloc.fid.fid}}" autocomplete="off" id="Text5" type="text" name="fid" style="text-transform:uppercase; width: 400px" />
+   </td>
+    </tr>
+<tr>
+
+
+  <td>
+  <label>Type:*</label>
+  </td>
+  <td>
+      <input required="required" class="form-control" value="{{varsubaloc.type}}" autocomplete="off" id="Text8" type="text" name="type" style="text-transform:uppercase; width: 400px" />
+  </td>
+</tr>
+    <tr>
+      <td></td>
+      <td><input style="width:200px" id="submit" class="btn btn-primary" type="submit" value="SAVE CHANGES" name="submit"/></td>
+    </tr>
+
+  </table>
+         {% if messages %}
+			{% for message in messages %}
+			<h4 align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+</form>
+
+</div>
+</div>
+</div>
+
+
+<script src="jquery.js"></script>
+<script type="text/javascript">
+  function fillname(x)
+  {
+    $.post("load.php", { key:x },
+      function(data) {
+        $('#data1').html(data);
+      });
+  }
+
+</script>
+{% include 'footer.html' %}
+
+</html>

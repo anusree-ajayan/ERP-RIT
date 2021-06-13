@@ -42,4 +42,5 @@ urlpatterns = [
     path('deletesub/<str:subjectid>',include('Hod.urls')),
     path('editallo/<str:fid>/<str:subjectid>',include('Hod.urls')),
     path('editsuballot/<str:classid>',include('Hod.urls')),
+    path('delsubaloc/<str:subjectid>/<str:fid>/<str:classid>',include('Hod.urls')),
 ]

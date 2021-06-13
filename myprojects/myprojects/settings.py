@@ -86,6 +86,10 @@ DATABASES = {
         'PASSWORD': 'Anusree@1',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
+        },
+
     }
 }
 
@@ -133,4 +137,3 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 
 
-LOGIN_URL ='login'

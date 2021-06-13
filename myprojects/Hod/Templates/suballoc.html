@@ -43,15 +43,31 @@
   <div class="row">
     <div class="col-lg-12">
 
-     <form id="suballoc" action = "suballoc.php" method = "POST" enctype = "">
+     <form id="suballoc" action = "addsuballoc.html" method = "POST" enctype = "">
+      {% csrf_token %}
        <table  id="outer1" align="center" style="padding-top:40px">
-        <br><br>
+            <tr>
+					<td>Department: <span class="required">*</span></td>
+					<td><select name="deptname" id="deptname" class="form-control" >
+					<option value="--select--">--select--</option>
+                       {% for rest1 in Department %}
+						<option>{{rest1.deptname}}</option>
+						{% endfor%}
+
+
+					</select>
+					</td>
+		 </tr>
+
         <tr>
          <td>
           <label>Semester:<span class="required">*</span></label>
         </td>
-        <td><select onchange="fetchsubject(this.value)" name="classid" class="form-control">
+        <td><select  name="classid" id="classid" class="form-control">
          <option value="--select--">--select--</option>
+							 {% for subaloc in ClassDetails %}
+						<option>{{subaloc.classid}}</option>
+						{% endfor%}
 
        </select></td>
      </tr>
@@ -65,6 +81,9 @@
       <div id ="data">
         <select name="subjectid" id="subjectid" class="form-control">
          <option value="--select--">--select--</option>
+             {% for subname in SubjectClass %}
+						<option>{{subname.subjectid}}</option>
+						{% endfor%}
 
        </select>
      </div>
@@ -77,11 +96,14 @@
   </td>
   <td>
    <div id ="data2">
-    <input list="name" autocomplete="off" name="name" class="form-control" type="text" onChange="fillname(this.value)"/>
-    <datalist id="name">
-     <option value="--select--">--select--</option>
+       <select name="fname"  class="form-control">
+         <option value="--select--">--select--</option>
+             {% for fname1 in FacultyDetails%}
+						<option>{{fname1.name}}</option>
+						{% endfor%}
 
-  </datalist></div></td>
+       </select>
+   </div></td>
 </tr>
 
 <tr>
@@ -89,11 +111,8 @@
     <label>Faculty ID:<span class="required"></span></label>
   </td><td>
     <div id ="data1">
-      <input list="fid" disabled="disabled" autocomplete="off" class="form-control" name="fid" type="text" />
-      <datalist id="fid">
-        <option value="--select--">--select--</option>
-
-      </datalist></div></td>
+      <input list="fid"  autocomplete="off" class="form-control" name="fid" type="text" />
+      </div></td>
     </tr>
 <tr>
 
@@ -116,6 +135,11 @@
     </tr>
 
   </table>
+         {% if messages %}
+			{% for message in messages %}
+			<h4 align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
 </form>
 
 </div>

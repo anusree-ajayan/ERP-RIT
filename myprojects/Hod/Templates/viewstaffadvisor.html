@@ -13,10 +13,33 @@
 		<div class="col-lg-12">
 
 
-			<form id="subview" action = "" method = "POST" enctype = "">
+			<form id="staffview" action = "viewstaffadvisor.html" method = "POST" enctype = "">
+{% csrf_token %}
+    <tr>
+					<td>Department: <span class="required">*</span></td>
+					<td><select name="deptna" id="deptname" class="form-control" >
+					<option value="--select--">--select--</option>
+						{% for vs2 in Department %}
+						<option>{{vs2.deptname}}</option>
+						{% endfor%}
 
 
-			</form>
+
+					</select>
+					</td>
+		 </tr>
+	     <tr align="center">
+        <td><input style="width:200px" id="submit" class="btn btn-primary" type="submit" value="Submit" name="submit"/></td>
+
+		 </tr>
+		{% if messages %}
+			{% for message in messages %}
+			<h4 align="left" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+
+
+</form>
 			<br><br>
 			<div class=".col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0">
 
@@ -35,10 +58,11 @@
                                  {% for vs1 in StaffAdvisor %}
 								          <tr>
 
-									         <td>{{vs1.fid.name }}</td>
-											 <td>{{vs1.classid }}</td>
+									         <td>{{vs1.fid.name}}</td>
+											 <td>{{vs1.classid}}</td>
 											 <td>{{vs1.students_list}}</td>
-								              <td><a href =" #">REMOVE</a></td>
+
+											  <td><a href="/deladfac/{{vs1.fid.fid}}/{{vs1.classid}}">REMOVE</a></td>
 
 										  </tr>
 

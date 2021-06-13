@@ -16,15 +16,9 @@
 					<td>Department: <span class="required">*</span></td>
 					<td><select name="deptna" id="deptname" class="form-control" >
 					<option value="--select--">--select--</option>
-                         <option>CIVIL</option>
-                        <option>COMPUTER APPLICATIONS</option>
-                        <option>MECHANICAL</option>
-                        <option>COMPUTER SCIENCE</option>
-                         <option>ELECTRONICS AND COMMUNICATION</option>
-                        <option>ARCHITECTURE</option>
-                        <option>ELECTRICAL AND ELECTRONICS</option>
-                         <option>APPLIED SCIENCE</option>
-
+                         {% for details1 in Department %}
+						<option>{{details1.deptname}}</option>
+						{% endfor%}
 					</select>
 					</td>
 		 </tr>
@@ -33,7 +27,11 @@
 
 		 </tr>
 
-
+{% if messages %}
+			{% for message in messages %}
+			<h4 align="left" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
 </form>
 
 <table border="1" align="center"
@@ -75,8 +73,8 @@
                              <td>{{details2.email}}</td>
                              <td>{{details2.phoneno}}</td>
                              <td>{{details2.photo}}</td>
-                             <td><input style="width:100px" id="submit1" class="btn btn-primary" type="submit" value="Edit" name="Edit"/></td>
-                             <td><input style="width:100px" id="submit2" class="btn btn-primary" type="submit" value="Delete" name="Delete"/></td>
+                             <td><a href="/editstaff/{{details2.fid }}" >EDIT </a></td>
+                             <td><a href="/deletestaff/{{details2.fid}}" >DELETE </a></td>
                         </tr>
 
                 {% endfor %}
@@ -96,6 +94,11 @@
             </tr>
     {% include 'footer.html' %}
 </table>
+ 	{% if messages %}
+			{% for message in messages %}
+			<h4 align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
 </body>
 
 </html>

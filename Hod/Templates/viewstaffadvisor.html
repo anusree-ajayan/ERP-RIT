@@ -13,10 +13,11 @@
 		<div class="col-lg-12">
 
 
-			<form id="subview" action = "" method = "POST" enctype = "">
-
-
-			</form>
+			{% if messages %}
+			{% for message in messages %}
+			<h4 align="left" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
 			<br><br>
 			<div class=".col-sm-6 .col-md-5 .col-md-offset-2 .col-lg-6 .col-lg-offset-0">
 
@@ -32,16 +33,19 @@
 
 
 
+                                 {% for vs1 in StaffAdvisor %}
+								          <tr>
 
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-                                  <td><a href =" #">REMOVE</a></td>
-																	</tr>
+									         <td>{{vs1.fid.name}}</td>
+											 <td>{{vs1.classid}}</td>
+											 <td>{{vs1.students_list}}</td>
 
-							</tr>
+											  <td><a href="/deladfac/{{vs1.fid.fid}}/{{vs1.classid}}">REMOVE</a></td>
 
+										  </tr>
+
+
+					             {% endfor %}
 
 
 			</table>

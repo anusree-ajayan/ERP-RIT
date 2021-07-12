@@ -3,22 +3,25 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from .models import Login
 
 # Create your views here.
 
 def login(request):
+
     return render(request,'login.html')
-def login_redirect(request):
+def login1(request):
+   if request.method=='POST':
+        username= request.POST["username"]
+        password= request.POST["password"]
+        log = Login.objects.filter(username=username,password=password)
+        log1= Login.objects.get(username=username,password=password)
 
-    if request.method == 'GET':
-        return render(request, 'login.html')
-    if request.method == 'POST':
-        user = authenticate(username=request.POST['username'],password=request.POST['password'])
+        if(log1.usertype=='hod'):
+           request.session["username"]=username
+           return redirect("/Hod/")
+        else:
+            return render(request, 'login.html')
 
-        if user is not None:
-            login(request,user)
-            if user.login.usertype =='hod':
-                return redirect('Hod:dash_home.html')
-            else:
-                messages.error(request,'username or password not correct')
-                return redirect('login.html')
+
+   return render(request, 'login.html')

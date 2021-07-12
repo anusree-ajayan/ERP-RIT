@@ -15,32 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from django.contrib.auth import views as auth_views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', include('home.urls')),
     path('', include('Hod.urls')),
-    path('empreg.html',include('Hod.urls')),
-    path('addfaculty',include('Hod.urls')),
-    path('viewstaff.html', include('Hod.urls')),
-    path('staffreg.html', include('Hod.urls')),
-    path('addsub.html',include('Hod.urls')),
-    path('addstaff.html',include('Hod.urls')),
-    path('viewstaffadvisor.html', include('Hod.urls')),
-    path('subreg.html', include('Hod.urls')),
-    path('subject_view.html', include('Hod.urls')),
-    path('suballoc.html', include('Hod.urls')),
-    path('addsuballoc.html',include('Hod.urls')),
-    path('suballocview.html',include('Hod.urls')),
-    path('searchstudent.html',include('Hod.urls')),
-    path('editstaff/<str:fid>',include('Hod.urls')),
-    path('deletestaff/<str:fid>',include('Hod.urls')),
-    path('editfac/<str:fid>',include('Hod.urls')),
-    path('deladfac/<str:fid>/<str:classid>',include('Hod.urls')),
-    path('editsub/<str:subjectid>',include('Hod.urls')),
-    path('editsub/<str:subjectid>',include('Hod.urls')),
-    path('deletesub/<str:subjectid>',include('Hod.urls')),
-    path('editallo/<str:fid>/<str:subjectid>',include('Hod.urls')),
-    path('editsuballot/<str:classid>',include('Hod.urls')),
-    path('delsubaloc/<str:subjectid>/<str:fid>/<str:classid>',include('Hod.urls')),
+   
+
+
+
+
 ]

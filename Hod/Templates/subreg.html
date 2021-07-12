@@ -2,33 +2,7 @@
 <html lang="en">
 {% include 'sidenav.html' %}
 {% include 'header.html' %}
-<script>
-	function validate()
-	{
-		var s1 = document.getElementById('deptname').value;
-		var s2 = document.getElementById('type').value;
-		if(s1=="--select--"){
-			alert("Please select class");
-			return false;
-		}
 
-		if(s2=="--select--"){
-			alert("Please select type");
-			return false;
-		}
-		return true;
-	}
-
-	function isNumberKey(evt)
-	{
-		var charCode = (evt.which) ? evt.which : evt.keyCode;
-		if (charCode != 46 && charCode > 31
-			&& (charCode < 48 || charCode > 57))
-			return false;
-
-		return true;
-	}
-</script>
 
 <div id="page-wrapper">
 
@@ -41,8 +15,10 @@
 
 
 
-		<form id="addsub" action = "addsub.php" method = "POST" enctype = "" onsubmit="return validate();">
+		<form  action = "addsub.html" method = "POST"  id="subreg"  onsubmit="return validate();">
+        {% csrf_token %}
 			<table  id="outer1" align="center" style="padding-top:40px">
+
 				<tr>
 					<td>Subject-ID: <span class="required">*</span></td>
 					<td>
@@ -58,10 +34,12 @@
 				<tr>
 					<td>Semester: <span class="required">*</span></td>
 					<td>
-						<select name="deptname" id="deptname" class="form-control">
-							<option value="--select--">--select--</option>
+						<select  id="classid" name="deptname"  class="form-control" >
+							<option disabled selected="true" >--select--</option>
+                           {% for sub1 in ClassDetails %}
+						   <option value="{{sub1.classid}}">{{sub1.courseid}}-{{sub1.semid}}-{{sub1.branch_or_specialisation}}</option>
+						   {% endfor%}
 
-						</select>
 					</td>
 				</tr>
 				<tr>
@@ -106,8 +84,13 @@
 
 						</tr>
 					</table>
+               {% if messages %}
+			{% for message in messages %}
+			<h4  align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
 				</form>
       {% include 'footer.html' %}
-    </div>>
+    </div>
 
 </html>

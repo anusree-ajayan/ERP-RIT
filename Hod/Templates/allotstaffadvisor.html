@@ -32,34 +32,48 @@ function validate()
 
 
 
-		<form id="addsub" action = "addstaff.p" method = "POST" enctype = "" onsubmit="return validate();">
+		<form id="addsub" action = "addstaff.html" method = "POST" enctype = "" onsubmit="return validate();">
+		{% csrf_token %}
 		<table  id="outer1" align="center" style="padding-top:40px">
 
+                  <tr>
 					<td>Class: <span class="required">*</span></td>
 					<td>
-					<select name="deptname" id="deptname" class="form-control">
+					<select name="class" id="class" class="form-control">
 					<option value="--select--">--select--</option>
+                      {% for results3 in ClassDetails %}
+						<option value="{{results3.classid}}">{{results3.courseid}}-{{results3.semid}}-{{results3.branch_or_specialisation}}</option>
+						{% endfor%}
 
 					</select>
 					</td>
 				</tr>
+			<tr>
 				<td>Faculty-ID: <span class="required">*</span></td>
 					<td>
 					<select name="fid" id="fid" class="form-control">
 					<option value="--select--">--select--</option>
-
+                      {% for results2 in FacultyDetails %}
+						<option>{{results2.fid}}</option>
+						{% endfor%}
 					</select>
 					</td>
-					<tr>
+					</tr>
+			<tr>
 					<td>RollNo (From-To): <span class="required">*</span></td>
 					<td><input required="required" autocomplete="off" class="form-control" id="Text1" type="text" name="list"  width: 400px" /></td>					</tr>
 
-				<tr>
+
         			<td><input style="width:200px" class="btn btn-primary" id="submit" type="submit" value="Submit" name="submit"/></td>
 
 
       			</tr>
       	</table>
+			{% if messages %}
+			{% for message in messages %}
+			<h4 align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
 	  </form>
 
     </div>

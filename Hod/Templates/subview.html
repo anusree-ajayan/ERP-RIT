@@ -9,6 +9,12 @@
 		</div>
 	</div>
 
+	 {% if messages %}
+			{% for message in messages %}
+			<h4  align="center" style="color:green">{{message}}</h4>
+			{% endfor %}
+			{% endif %}
+
 	<div class="row">
 		<div class="col-lg-12">
 
@@ -29,30 +35,29 @@
 							<th>Internal Max</th>
 							<th>External Pass Mark</th>
 							<th>External Max</th>
-							<th></th>
+							<th>EDIT</th>
+                            <th>REMOVE</th>
 						</tr>
 
-								<tr>
-									<td></td>
-									<td></td>
+								    {% for vwsub in SubjectClass %}
+								          <tr>
 
-									<td>
-
-
-
-								</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-
-
-								<td>
-<a href="#">REMOVE</a>
-<a href="#">EDIT</a>
+									         <td>{{vwsub.subjectid }}</td>
+											 <td>{{vwsub.subject_title }}</td>
+											 <td>{{vwsub.type}}</td>
+											   <td>{{vwsub.internal_passmark}}</td>
+											 <td>{{vwsub.internal_mark}}</td>
+											   <td>{{vwsub.external_pass_mark}}</td>
+											 <td>{{vwsub.external_mark}}</td>
+                                              <td> <a href="/editsub/{{vwsub.subjectid }}">EDIT</a></td>
+								              <td><a href ="/deletesub/{{vwsub.subjectid}}">REMOVE</a></td>
 
 
-								</td>
+										  </tr>
+
+
+					             {% endfor %}
+
 
 							</tr>
 {% include 'footer.html' %}
